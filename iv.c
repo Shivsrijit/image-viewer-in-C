@@ -5,13 +5,16 @@
 
 int main(int argc, char* argv[]) {
 
+    FILE *in = fopen("input.ppm", "rb");
+    if (!in) { fprintf(stderr, "cannot open file\n"); return 1; }
+
     //reading header data 
-    FILE *in = stdin; 
+    // FILE *in = stdin; 
     char *pthroway = calloc(1000, sizeof(char));
     //read first line (specifier P3/p6)
     fgets(pthroway, 1000, in);
     //read second line (comment)
-    fgets(pthroway,1000, in) ;
+    // fgets(pthroway,1000, in) ;
     //read third line (dimensions: width / height )
     char *pdimensions = calloc(1000, sizeof(char)) ;
     fgets(pdimensions, 1000, in) ;
@@ -56,8 +59,13 @@ int main(int argc, char* argv[]) {
     // instead of using NULL we would use the pixel color values 
     SDL_Rect pixel = (SDL_Rect){0,0,1,1};
     //looping over full window and putting colors to the pixel 
-    for(int x = 0 ; x < width ; x++){
-        for(int y = 0 ; y < height ; y++){
+    for(int y = 0 ; y < height ; y++){
+        for(int x = 0 ; x < width ; x++){
+            Uint8 r,g,b ; 
+            r = (Uint8)fgetc(in);
+            g = (Uint8)fgetc(in);
+            b = (Uint8)fgetc(in);
+            Uint32 color = SDL_MapRGB(psurface->format, r,g,b) ;
             pixel.x = x ;
             pixel.y = y ;
             SDL_FillRect(psurface, &pixel, color ) ;
@@ -66,7 +74,21 @@ int main(int argc, char* argv[]) {
     
     SDL_UpdateWindowSurface(pwindow); //to tell the graphics memory that the color has changed
     
-    SDL_Delay(3000);
+    // SDL_Delay(3000);
+    // we will use SDL event loop, to close or open viewer
+    int appRunning = 1 ; 
+    while(appRunning)
+    {
+        SDL_Event event ;
+        while(SDL_PollEvent(&event))
+        {
+            if(event.type == SDL_QUIT)
+            {
+                appRunning = 0 ; 
+            }
+        }
+        SDL_Delay(100) ;
+    }
     SDL_DestroyWindow(pwindow);
     SDL_Quit();    
     return 0;
