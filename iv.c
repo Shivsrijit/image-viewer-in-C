@@ -4,23 +4,68 @@
 #include <stdlib.h>
 
 int main(int argc, char* argv[]) {
+
+    //reading header data 
+    FILE *in = stdin; 
+    char *pthroway = calloc(1000, sizeof(char));
+    //read first line (specifier P3/p6)
+    fgets(pthroway, 1000, in);
+    //read second line (comment)
+    fgets(pthroway,1000, in) ;
+    //read third line (dimensions: width / height )
+    char *pdimensions = calloc(1000, sizeof(char)) ;
+    fgets(pdimensions, 1000, in) ;
+    //read fourth line (max color value)
+    fgets(pthroway, 1000, in) ;
+    free(pthroway);
+    
+    int width = -1; 
+    int height = -1;
+    sscanf(pdimensions, "%d %d\n", &width, &height) ;
+    free(pdimensions) ;
+
+    printf(" width : %d, height : %d ", width, height);
+
+
+
+    // const int width = 640 ; 
+    // const int height = 480 ; 
     SDL_Init(SDL_INIT_VIDEO);
+
+    //creating window of given width and height 
     SDL_Window* pwindow = SDL_CreateWindow(
         "Simple Image Viewer", SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED, 640, 480, 0);
+        SDL_WINDOWPOS_CENTERED, width, height, 0);
     
+    //getting surface from that window
     SDL_Surface *psurface = SDL_GetWindowSurface(pwindow);
 
     //getting colors in unit32 format (this is proper pixel format that we can use )
-    Uint8 r, g, b ; 
-    r = 0xFF; 
-    b = 0xFF ; 
-    g = 0 ; 
-    Uint32 color = SDL_MapRGB(psurface->format, r, g, b) ;
+    // Uint8 r, g, b ; 
+    // r = 0xFF; 
+    // b = 0xFF ; 
+    // g = 0 ; 
+    // Uint32 color = SDL_MapRGB(psurface->format, r, g, b) ;
 
     //fill rectangle in full area (NULL represents full area )
-    SDL_FillRect(psurface, NULL , color) ;
+    // SDL_FillRect(psurface, NULL , color) ;
+    
+
+    /* reading binary data here*/
+
+    // instead of using NULL we would use the pixel color values 
+    SDL_Rect pixel = (SDL_Rect){0,0,1,1};
+    //looping over full window and putting colors to the pixel 
+    for(int x = 0 ; x < width ; x++){
+        for(int y = 0 ; y < height ; y++){
+            pixel.x = x ;
+            pixel.y = y ;
+            SDL_FillRect(psurface, &pixel, color ) ;
+        }
+    }
+    
     SDL_UpdateWindowSurface(pwindow); //to tell the graphics memory that the color has changed
+    
     SDL_Delay(3000);
     SDL_DestroyWindow(pwindow);
     SDL_Quit();    
