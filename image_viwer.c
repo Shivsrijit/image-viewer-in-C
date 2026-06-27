@@ -5,6 +5,7 @@
 
 int main(int argc, char* argv[]) {
 
+    //reading ppm file in binary format 
     FILE *in = fopen("input.ppm", "rb");
     if (!in) { fprintf(stderr, "cannot open file\n"); return 1; }
 
@@ -14,7 +15,8 @@ int main(int argc, char* argv[]) {
     //read first line (specifier P3/p6)
     fgets(pthroway, 1000, in);
     //read second line (comment)
-    // fgets(pthroway,1000, in) ;
+    //uncomment this line if your file has a comment , or remove the comment
+    // fgets(pthroway,1000, in) ;    
     //read third line (dimensions: width / height )
     char *pdimensions = calloc(1000, sizeof(char)) ;
     fgets(pdimensions, 1000, in) ;
@@ -29,10 +31,6 @@ int main(int argc, char* argv[]) {
 
     printf(" width : %d, height : %d ", width, height);
 
-
-
-    // const int width = 640 ; 
-    // const int height = 480 ; 
     SDL_Init(SDL_INIT_VIDEO);
 
     //creating window of given width and height 
