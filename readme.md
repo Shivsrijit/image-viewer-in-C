@@ -9,7 +9,7 @@
 5. Setup SDL2 (see below) this is for windows powershell 
    - (Simple DirectMedia Layer (SDL for short) is a cross-platform library designed to make it easy to write multi-media software)
 ---
-- output example : <img width="966" height="631" alt="image" src="https://github.com/user-attachments/assets/ee4c9cb5-80ac-4ca4-99ab-a16ffd8075ca" />
+- output example :  <img width="966" height="631" alt="image" src="https://github.com/user-attachments/assets/ee4c9cb5-80ac-4ca4-99ab-a16ffd8075ca" />
 
 
 ## SDL2 Setup on Windows 64-bit (ucrt64)
