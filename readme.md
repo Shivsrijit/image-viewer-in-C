@@ -3,9 +3,10 @@
 ##### Steps to run this:
 1. Take an image in png/jpeg
 2. Convert to PPM format (P6) using `magic.py`
-3. Check if your image has a comment — if yes, uncomment the comment-handling line in the C code
-4. Setup SDL2 (see below) this is for windows powershell 
-
+   - (A PPM (Portable Pixmap) file is a simple, uncompressed raster image format that stores 24-bit RGB color pixels)
+4. Check if your image has a comment - if yes, uncomment the comment-handling line in the C code
+5. Setup SDL2 (see below) this is for windows powershell 
+   - (Simple DirectMedia Layer (SDL for short) is a cross-platform library designed to make it easy to write multi-media software)
 ---
 
 ## SDL2 Setup on Windows 64-bit (ucrt64)
