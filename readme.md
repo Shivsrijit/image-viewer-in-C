@@ -73,4 +73,4 @@ Not needed anymore.
 gcc yourfile.c -o output -lSDL2
 ```
 
-Works from any directory, any terminal, any editor.
+This works from any directory, any terminal, any editor.
